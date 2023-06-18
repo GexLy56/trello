@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  backend:
+    image: 'gexly56/trello'
+    container_name: 'trello-container'
+    depends_on:
+      - postgres
+    environment:
+      - SERVER_PORT=8000
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123123
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=false
+    ports:
+      - 8001:8000
+
+  postgres:
+    image: postgres
+    container_name: 'postgres-container'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123123
+    ports:
+      - 5433:5432

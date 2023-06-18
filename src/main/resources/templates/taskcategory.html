@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout.html">
+<head>
+    <title>Categories</title>
+</head>
+<body>
+    <div class="container px-0" layout:fragment="content">
+        <div>
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addCategory">
+                + New Category
+            </button>
+        </div>
+
+        <div class="row mt-2 px-0" th:each="category : ${categories}">
+            <div class="d-inline d-flex align-items-center">
+                <p class="m-0" th:text="${category.getName()}"></p>
+                <a th:href="@{'/category/' + ${category.getId()} }" class="btn btn-sm btn-primary py-0 ms-2">Edit</a>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form th:action="@{'/addTaskCategory'}" method="post">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">ADD NEW CATEGORY</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="tc_name">CATEGORY NAME:</label>
+                            <input type="text" class="form-control mt-1" placeholder="Category Name" id="tc_name"
+                                   name="name" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button class="btn btn-success">Add Category</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

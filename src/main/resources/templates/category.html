@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout.html">
+<head>
+    <title th:text="${category.getName()}"></title>
+</head>
+<body>
+    <div class="container px-0" layout:fragment="content">
+
+        <form th:action="@{'/saveTaskCategory'}" method="post">
+            <input type="hidden" th:value="${category.id}" name="id">
+            <label for="tc_name">NAME:</label>
+            <input type="text" class="form-control mt-1" id="tc_name" name="name" th:value="${category.name}" required>
+            <div class="col-3 mt-2">
+                <button class="btn btn-primary mt-1 btn-sm">SAVE</button>
+                <button type="button" class="btn btn-danger mt-1 btn-sm" data-bs-toggle="modal" data-bs-target="#del">
+                    DELETE</button>
+            </div>
+        </form>
+
+        <!--    Modal    -->
+        <div class="modal fade" id="del" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm delete</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form th:action="@{'/deleteTaskCategory'}" method="post">
+                        <input type="hidden" name="id" th:value="${category.id}">
+                        <div class="modal-body">
+                            ARE YOU SURE?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                            <button class="btn btn-danger">YES</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
